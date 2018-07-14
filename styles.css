@@ -1,4 +1,38 @@
 /* Google fonts for later
  * font-family: 'Roboto Slab', serif;
  * font-family: 'Open Sans', sans-serif;*/
+body {
+  margin: 0;
+}
+header {
+  background-color: #E5F3F2;
+  font-size: 32px;
+  color: #00A79D;
+  font-family: 'Roboto Slab', serif;
+  text-align: center;
+}
+.box {
+  color: #6D6E71;
+}
+form {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  font-size: 24px;
+  width: 55%;
+  margin: 1%;
 
+}
+.save-input {
+  font-size: 24px;
+  background-color: #00A79D;
+  color: #FFFFFF;
+  width: 55.25%;
+  margin-bottom: 5%;
+}
+.save-input:hover {
+  background-color: #045E55;
+}

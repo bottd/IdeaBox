@@ -36,3 +36,27 @@ input {
 .save-input:hover {
   background-color: #045E55;
 }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+article {
+  border-bottom: 1px solid #D1D3D4;
+  width: 55%;
+  font-family: 'Open Sans', sans-serif;
+}
+h2 {
+  color: #6D6E71;
+}
+p {
+  color: #939598;
+}
+.upvote, .downvote {
+  float: left;
+}
+h4 {
+  color: #6D6E71;
+  float: left;
+  margin: 0;
+}

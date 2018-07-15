@@ -1,9 +1,16 @@
-function idea(title, body) {
+var titleInput = $('.title-input');
+var bodyInput = $('.body-input');
+var saveInput = $('.save-input');
+var ideaCounter = 0;
+
+
+function idea(title, body, quality) {
   this.title = title;
   this.body = body;
   this.quality = 'swill';
+  this.number = ideaCounter;
   this.html = `
-    <article>
+    <article id=${this.number}>
       <h2>${this.title}</h2>
       <button class="delete">Delete</button>
       <p>${this.body}</p>
@@ -12,12 +19,20 @@ function idea(title, body) {
     </article>`;
 }
 
+
+
+
+
 $('.save-input').on('click', function() {
   event.preventDefault();
-  makeThought = new idea($('.title-input').val(),$('.body-input').val());
+  var makeThought = new idea(titleInput.val(), bodyInput.val());
   console.log(makeThought.title);
   console.log(makeThought.body);
   console.log(makeThought.html);
   console.log('yay');
-  $('.saved-thoughts').append(makeThought.html);
+  $('.thought').prepend(makeThought.html);
+  titleInput.val('');
+  bodyInput.val('');
+  ideaCounter ++;
 });
+

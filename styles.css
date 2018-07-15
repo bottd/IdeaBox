@@ -1,6 +1,9 @@
 /* Google fonts for later
  * font-family: 'Roboto Slab', serif;
  * font-family: 'Open Sans', sans-serif;*/
+ *{
+  box-sizing: border-box;
+ }
 body {
   margin: 0;
 }
@@ -10,6 +13,9 @@ header {
   color: #00A79D;
   font-family: 'Roboto Slab', serif;
   text-align: center;
+}
+h1{
+  margin: 0;
 }
 .box {
   color: #6D6E71;

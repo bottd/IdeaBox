@@ -61,6 +61,36 @@ p {
 .upvote, .downvote {
   float: left;
 }
+.delete{
+  background: url(images/delete.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
+.delete:hover{
+  background: url(images/delete-hover.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
+.upvote{
+  background: url(images/upvote.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
+.upvote:hover{
+  background: url(images/upvote-hover.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
+.downvote{
+  background: url(images/downvote.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
+.downvote:hover{
+  background: url(images/downvote-hover.svg) no-repeat;
+  height: 30px;
+  width: 30px;
+}
 h4 {
   color: #6D6E71;
   float: left;

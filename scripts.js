@@ -12,9 +12,10 @@ function idea(title, body, quality) {
   this.html = `
     <article id=${this.number}>
       <h2>${this.title}</h2>
-      <button class="delete">Delete</button>
+      <button class="delete"></button>
       <p>${this.body}</p>
-      <button class="upvote">Upvote</button>
+      <button class="upvote"></button>
+      <button class="downvote"></button>
       <h4>Quality: ${this.quality}</h4>
     </article>`;
 }

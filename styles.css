@@ -52,6 +52,10 @@ article {
   width: 55%;
   font-family: 'Open Sans', sans-serif;
 }
+.idea-card{
+  height: 12rem;
+  width: 100%;
+}
 h2 {
   color: #6D6E71;
 }
@@ -65,31 +69,43 @@ p {
   background: url(images/delete.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 .delete:hover{
   background: url(images/delete-hover.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 .upvote{
   background: url(images/upvote.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 .upvote:hover{
   background: url(images/upvote-hover.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 .downvote{
   background: url(images/downvote.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 .downvote:hover{
   background: url(images/downvote-hover.svg) no-repeat;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
+  border: none;
 }
 h4 {
   color: #6D6E71;

@@ -10,7 +10,7 @@ function Idea(title, body, quality) {
   this.quality = 'swill';
   this.number = ideaCounter;
   this.html = `
-    <article id="${this.number}">
+    <article id="${this.number}" class="idea-card">
       <h2>${this.title}</h2>
       <button class="delete"></button>
       <p>${this.body}</p>

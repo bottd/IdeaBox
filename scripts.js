@@ -2,13 +2,16 @@ var titleInput = $('.title-input');
 var bodyInput = $('.body-input');
 var saveInput = $('.save-input');
 var ideaIndex = [];
+var ideaCounter = 0;
 
 function Idea(title, body, quality) {
   this.title = title;
   this.body = body;
   this.quality = 'swill';
+  this.number = ideaCounter;
+  this.index = 0;
   this.html = `
-    <article class="idea-card">
+    <article id='${this.number}' class="idea-card">
       <h2>${this.title}</h2>
       <button class="delete"></button>
       <p>${this.body}</p>
@@ -37,13 +40,22 @@ saveInput.on('click', function() {
   bodyInput.val('');
   ideaIndex.push(makeThought);
   localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
+  ideaCounter++;
 });
 
 $('.thought').on('click', function(e) {
   var target = $(e.target);
-  console.log(target.parent().attr('id'));
+  var id = target.parent().attr('id');
   if (target.hasClass('delete')){
     target.parent().remove();
+    var selectIdea = ideaIndex.filter(function(n,index) {
+      if (n.number == id) {
+        n.index = index;
+        return (n.number == id);
+      }
+    });
+    ideaIndex.splice(selectIdea[0].index,1);
+    localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
   }
   if (target.hasClass('upvote')){
     n = target.parent().attr('id');
@@ -53,11 +65,13 @@ $('.thought').on('click', function(e) {
 });
 
 function populate() {
-  ideaIndex.forEach(function(idea) {
-    Object.setPrototypeOf(idea,Idea.prototype);
-    $('.thought').prepend(idea.html);
+  ideaIndex.forEach(function(n) {
+    Object.setPrototypeOf(n, Idea.prototype);
+    $('.thought').prepend(n.html);
   });
 }
 
-ideaIndex = JSON.parse(localStorage.getItem('thoughts'));
+if (localStorage.getItem('thoughts')) {
+  ideaIndex = JSON.parse(localStorage.getItem('thoughts'));
+}
 populate();

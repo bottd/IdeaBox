@@ -1,16 +1,14 @@
 var titleInput = $('.title-input');
 var bodyInput = $('.body-input');
 var saveInput = $('.save-input');
-var ideaCounter = 0;
 var ideaIndex = [];
 
 function Idea(title, body, quality) {
   this.title = title;
   this.body = body;
   this.quality = 'swill';
-  this.number = ideaCounter;
   this.html = `
-    <article id="${this.number}" class="idea-card">
+    <article class="idea-card">
       <h2>${this.title}</h2>
       <button class="delete"></button>
       <p>${this.body}</p>
@@ -22,7 +20,7 @@ function Idea(title, body, quality) {
 
 Idea.prototype.refreshHTML = function(){
   this.html = `
-     <article id="${this.number}">
+     <article>
        <h2>${this.title}</h2>
        <button class="delete">Delete</button>
        <p>${this.body}</p>
@@ -38,7 +36,6 @@ saveInput.on('click', function() {
   titleInput.val('');
   bodyInput.val('');
   ideaIndex.push(makeThought);
-  ideaCounter ++;
 });
 
 $('.thought').on('click', function(e) {

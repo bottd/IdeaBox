@@ -36,6 +36,7 @@ saveInput.on('click', function() {
   titleInput.val('');
   bodyInput.val('');
   ideaIndex.push(makeThought);
+  localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
 });
 
 $('.thought').on('click', function(e) {
@@ -50,3 +51,13 @@ $('.thought').on('click', function(e) {
     target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
     }
 });
+
+function populate() {
+  ideaIndex.forEach(function(idea) {
+    Object.setPrototypeOf(idea,Idea.prototype);
+    $('.thought').prepend(idea.html);
+  });
+}
+
+ideaIndex = JSON.parse(localStorage.getItem('thoughts'));
+populate();

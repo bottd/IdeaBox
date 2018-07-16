@@ -23,7 +23,7 @@ function Idea(title, body, quality) {
 
 Idea.prototype.refreshHTML = function(){
   this.html = `
-     <article>
+     <article id='${this.number}' class="idea-card">
        <h2>${this.title}</h2>
        <button class="delete">Delete</button>
        <p>${this.body}</p>

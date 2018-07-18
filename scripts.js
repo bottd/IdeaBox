@@ -2,13 +2,17 @@ var titleInput = $('.title-input');
 var bodyInput = $('.body-input');
 var saveInput = $('.save-input');
 var ideaIndex = [];
-var ideaCounter = 0;
 
-function Idea(title, body, quality) {
+if (localStorage.getItem('thoughts')) {
+  ideaIndex = JSON.parse(localStorage.getItem('thoughts'));
+}
+populate();
+
+function Idea(title, body) {
   this.title = title;
   this.body = body;
   this.quality = 'swill';
-  this.number = ideaCounter;
+  this.number = Date.now();
   this.index = 0;
   this.html = `
     <article id='${this.number}' class="idea-card">
@@ -41,7 +45,6 @@ saveInput.on('click', function() {
   bodyInput.val('');
   ideaIndex.push(makeThought);
   localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
-  ideaCounter++;
 });
 
 $('.thought').on('click', function(e) {
@@ -54,22 +57,27 @@ $('.thought').on('click', function(e) {
     localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
   }
   if (target.hasClass('upvote')){
-    n = target.parent().attr('id');
-    if(ideaIndex[n].quality === "swill"){
-    ideaIndex[n].quality = "plausible"}
-    else if(ideaIndex[n].quality === "plausible"){
-    ideaIndex[n].quality = "genius"
+    n = getIdea(id, target);
+    if(n.quality === "swill"){
+    n.quality = "plausible"}
+    else if(n.quality === "plausible"){
+    n.quality = "genius"
     }
-    target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
+    target.siblings('h4').text(`Quality: ${n.quality}`);
+    n.refreshHTML();
+    localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
+
     }
   if (target.hasClass('downvote')){
-    n = target.parent().attr('id');
-    if(ideaIndex[n].quality === "genius"){
-    ideaIndex[n].quality = "plausible"
-    }else if(ideaIndex[n].quality === "plausible"){
-    ideaIndex[n].quality = "swill"
+    n = getIdea(id, target);
+    if(n.quality === "genius"){
+    n.quality = "plausible"
+    }else if(n.quality === "plausible"){
+    n.quality = "swill"
     }
-    target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
+    target.siblings('h4').text(`Quality: ${n.quality}`);
+    n.refreshHTML();
+    localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
   }
 });
 
@@ -88,7 +96,19 @@ $('.thought').on('keyup', function(e) {
     ideaIndex[selectIdea.index].refreshHTML();
     localStorage.setItem('thoughts', JSON.stringify(ideaIndex));
   }
+});
+
+$('.search').on('keyup', function() {
+  var newIndex = ideaIndex.filter(function(item){
+    search = $('.search').val().toLowerCase(); 
+    return (item.title.toLowerCase().includes(search) || item.body.toLowerCase().includes(search))
   });
+  $('.thought').empty();
+  newIndex.forEach(function(item){
+    $('.thought').prepend(item.html);
+  });
+
+});
 
 function populate() {
   ideaIndex.forEach(function(n) {
@@ -98,7 +118,7 @@ function populate() {
 }
 
 function getIdea(id, target) {
-     target.parent();
+    target.parent();
     var selectIdea = ideaIndex.filter(function(n,index) {
       if (n.number == id) {
         n.index = index;
@@ -108,7 +128,4 @@ function getIdea(id, target) {
     return selectIdea[0]
 }
 
-if (localStorage.getItem('thoughts')) {
-  ideaIndex = JSON.parse(localStorage.getItem('thoughts'));
-}
-populate();
+

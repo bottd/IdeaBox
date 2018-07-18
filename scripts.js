@@ -12,9 +12,9 @@ function Idea(title, body, quality) {
   this.index = 0;
   this.html = `
     <article id='${this.number}' class="idea-card">
-      <h2>${this.title}</h2>
+      <h2 contenteditable="true">${this.title}</h2>
       <button class="delete"></button>
-      <p>${this.body}</p>
+      <p contenteditable="true">${this.body}</p>
       <button class="upvote"></button>
       <button class="downvote"></button>
       <h4>Quality: ${this.quality}</h4>
@@ -24,9 +24,9 @@ function Idea(title, body, quality) {
 Idea.prototype.refreshHTML = function(){
   this.html = `
      <article id='${this.number}' class="idea-card">
-      <h2>${this.title}</h2>
+      <h2 contenteditable="true">${this.title}</h2>
       <button class="delete"></button>
-      <p>${this.body}</p>
+      <p contenteditable="true">${this.body}</p>
       <button class="upvote"></button>
       <button class="downvote"></button>
       <h4>quality: ${this.quality}</h4>
@@ -49,13 +49,8 @@ $('.thought').on('click', function(e) {
   var id = target.parent().attr('id');
   if (target.hasClass('delete')){
     target.parent().remove();
-    var selectIdea = ideaIndex.filter(function(n,index) {
-      if (n.number == id) {
-        n.index = index;
-        return (n.number == id);
-      }
-    });
-    ideaIndex.splice(selectIdea[0].index,1);
+    var selectIdea = getIdea(id, target);
+    ideaIndex.splice(selectIdea.index,1);
     localStorage.setItem('thoughts',JSON.stringify(ideaIndex));
   }
   if (target.hasClass('upvote')){
@@ -75,15 +70,42 @@ $('.thought').on('click', function(e) {
     ideaIndex[n].quality = "swill"
     }
     target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
-
   }
 });
+
+$('.thought').on('keyup', function(e) {
+  var target = $(e.target)
+    var id = target.parent().attr('id');
+  if(target.is('h2')){
+    var selectIdea = getIdea(id, target);
+    ideaIndex[selectIdea.index].title = target.text();
+    ideaIndex[selectIdea.index].refreshHTML();
+    localStorage.setItem('thoughts', JSON.stringify(ideaIndex));
+    }
+  if(target.is('p')){
+    var selectIdea = getIdea(id, target);
+    ideaIndex[selectIdea.index].body = target.text();
+    ideaIndex[selectIdea.index].refreshHTML();
+    localStorage.setItem('thoughts', JSON.stringify(ideaIndex));
+  }
+  });
 
 function populate() {
   ideaIndex.forEach(function(n) {
     Object.setPrototypeOf(n, Idea.prototype);
     $('.thought').prepend(n.html);
   });
+}
+
+function getIdea(id, target) {
+     target.parent();
+    var selectIdea = ideaIndex.filter(function(n,index) {
+      if (n.number == id) {
+        n.index = index;
+        return (n.number == id);
+      }
+    });
+    return selectIdea[0]
 }
 
 if (localStorage.getItem('thoughts')) {

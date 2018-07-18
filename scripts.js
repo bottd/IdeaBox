@@ -24,12 +24,13 @@ function Idea(title, body, quality) {
 Idea.prototype.refreshHTML = function(){
   this.html = `
      <article id='${this.number}' class="idea-card">
-       <h2>${this.title}</h2>
-       <button class="delete">Delete</button>
-       <p>${this.body}</p>
-       <button class="upvote">Upvote</button>
-       <h4>Quality: ${this.quality}</h4>
-     </article>`;
+      <h2>${this.title}</h2>
+      <button class="delete"></button>
+      <p>${this.body}</p>
+      <button class="upvote"></button>
+      <button class="downvote"></button>
+      <h4>quality: ${this.quality}</h4>
+    </article>`;
 };
 
 saveInput.on('click', function() {
@@ -59,9 +60,23 @@ $('.thought').on('click', function(e) {
   }
   if (target.hasClass('upvote')){
     n = target.parent().attr('id');
-    ideaIndex[n].quality = "plausible";
+    if(ideaIndex[n].quality === "swill"){
+    ideaIndex[n].quality = "plausible"}
+    else if(ideaIndex[n].quality === "plausible"){
+    ideaIndex[n].quality = "genius"
+    }
     target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
     }
+  if (target.hasClass('downvote')){
+    n = target.parent().attr('id');
+    if(ideaIndex[n].quality === "genius"){
+    ideaIndex[n].quality = "plausible"
+    }else if(ideaIndex[n].quality === "plausible"){
+    ideaIndex[n].quality = "swill"
+    }
+    target.siblings('h4').text(`Quality: ${ideaIndex[n].quality}`);
+
+  }
 });
 
 function populate() {
